@@ -1,95 +1,49 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import { useState } from 'react';
+import FileUpload from '@/components/FileUpload';
+import FileVerification from '@/components/FileVerification';
+import FileList from '@/components/FileList';
+import styles from './page.module.css';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<'upload' | 'verify' | 'list'>('upload');
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <div className={styles.header}>
+          <h1>ZK File Authentication</h1>
+          <p>Authenticate file authorship using Zero-Knowledge proofs on Starknet</p>
+        </div>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <nav className={styles.tabs}>
+          <button 
+            className={`${styles.tab} ${activeTab === 'upload' ? styles.active : ''}`}
+            onClick={() => setActiveTab('upload')}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
+            Upload File
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'verify' ? styles.active : ''}`}
+            onClick={() => setActiveTab('verify')}
           >
-            Read our docs
-          </a>
+            Verify File
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'list' ? styles.active : ''}`}
+            onClick={() => setActiveTab('list')}
+          >
+            All Files
+          </button>
+        </nav>
+
+        <div className={styles.content}>
+          {activeTab === 'upload' && <FileUpload />}
+          {activeTab === 'verify' && <FileVerification />}
+          {activeTab === 'list' && <FileList />}
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }

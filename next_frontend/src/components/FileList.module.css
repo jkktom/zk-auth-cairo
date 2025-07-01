@@ -1,0 +1,177 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h2 {
+  margin: 0;
+  color: var(--foreground);
+}
+
+.refreshButton, .retryButton {
+  padding: 8px 16px;
+  background: var(--gray-alpha-100);
+  border: 1px solid var(--gray-alpha-200);
+  border-radius: 6px;
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.refreshButton:hover, .retryButton:hover {
+  background: var(--gray-alpha-200);
+}
+
+.loading {
+  text-align: center;
+  padding: 48px;
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.error {
+  padding: 24px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  color: #c00;
+  text-align: center;
+}
+
+.empty {
+  text-align: center;
+  padding: 48px;
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.fileGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.fileCard {
+  background: var(--background);
+  border: 1px solid var(--gray-alpha-200);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.fileCard:hover {
+  border-color: var(--gray-alpha-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+  word-break: break-word;
+  flex: 1;
+  margin-right: 12px;
+}
+
+.fileType {
+  background: var(--gray-alpha-100);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.label {
+  font-weight: 500;
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.hash, .address {
+  background: var(--gray-alpha-100);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-geist-mono);
+  font-size: 12px;
+  color: var(--foreground);
+}
+
+.cardFooter {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.explorerLink {
+  color: #0070f3;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.explorerLink:hover {
+  text-decoration: underline;
+}
+
+.copyButton {
+  padding: 6px 12px;
+  background: var(--gray-alpha-100);
+  border: 1px solid var(--gray-alpha-200);
+  border-radius: 4px;
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.copyButton:hover {
+  background: var(--gray-alpha-200);
+}
+
+@media (max-width: 600px) {
+  .fileGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .cardFooter {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
