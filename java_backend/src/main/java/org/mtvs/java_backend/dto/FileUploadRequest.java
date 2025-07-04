@@ -1,4 +1,4 @@
-package org.mtvs.java_bakcend.dto;
+package org.mtvs.java_backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

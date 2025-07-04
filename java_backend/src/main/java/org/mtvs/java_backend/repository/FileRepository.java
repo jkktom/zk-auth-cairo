@@ -1,6 +1,6 @@
-package org.mtvs.java_bakcend.repository;
+package org.mtvs.java_backend.repository;
 
-import org.mtvs.java_bakcend.entity.FileEntity;
+import org.mtvs.java_backend.entity.FileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,12 +1,12 @@
-package org.mtvs.java_bakcend.service;
+package org.mtvs.java_backend.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mtvs.java_bakcend.dto.FileUploadResponse;
-import org.mtvs.java_bakcend.dto.FileVerificationResponse;
-import org.mtvs.java_bakcend.entity.FileEntity;
-import org.mtvs.java_bakcend.repository.FileRepository;
-import org.mtvs.java_bakcend.util.PoseidonHashUtil;
+import org.mtvs.java_backend.dto.FileUploadResponse;
+import org.mtvs.java_backend.dto.FileVerificationResponse;
+import org.mtvs.java_backend.entity.FileEntity;
+import org.mtvs.java_backend.repository.FileRepository;
+import org.mtvs.java_backend.util.PoseidonHashUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

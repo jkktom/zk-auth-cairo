@@ -1,4 +1,4 @@
-package org.mtvs.java_bakcend.dto;
+package org.mtvs.java_backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

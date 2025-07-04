@@ -1,4 +1,4 @@
-package org.mtvs.java_bakcend.util;
+package org.mtvs.java_backend.util;
 
 import org.bouncycastle.crypto.digests.KeccakDigest;
 import org.springframework.stereotype.Component;

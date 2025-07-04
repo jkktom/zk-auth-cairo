@@ -1,4 +1,4 @@
-package org.mtvs.java_bakcend.entity;
+package org.mtvs.java_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,10 +1,10 @@
-package org.mtvs.java_bakcend;
+package org.mtvs.java_backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JavaBakcendApplicationTests {
+class JavaBackendApplicationTests {
 
     @Test
     void contextLoads() {

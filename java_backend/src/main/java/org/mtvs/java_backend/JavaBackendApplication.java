@@ -1,13 +1,13 @@
-package org.mtvs.java_bakcend;
+package org.mtvs.java_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JavaBakcendApplication {
+public class JavaBackendApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JavaBakcendApplication.class, args);
+        SpringApplication.run(JavaBackendApplication.class, args);
     }
 
 }

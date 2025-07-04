@@ -1,10 +1,10 @@
-package org.mtvs.java_bakcend.controller;
+package org.mtvs.java_backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mtvs.java_bakcend.dto.FileUploadResponse;
-import org.mtvs.java_bakcend.dto.FileVerificationResponse;
-import org.mtvs.java_bakcend.service.FileService;
+import org.mtvs.java_backend.dto.FileUploadResponse;
+import org.mtvs.java_backend.dto.FileVerificationResponse;
+import org.mtvs.java_backend.service.FileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
