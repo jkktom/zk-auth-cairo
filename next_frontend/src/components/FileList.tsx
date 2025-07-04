@@ -54,12 +54,35 @@ export default function FileList() {
     return new Date(dateString).toLocaleDateString();
   };
 
-  const shortenHash = (hash: string) => {
-    return hash.substring(0, 10) + '...' + hash.substring(hash.length - 8);
+  const [showFullHash, setShowFullHash] = useState<{[key: number]: boolean}>({});
+  const [showFullAddress, setShowFullAddress] = useState<{[key: number]: boolean}>({});
+  const [copySuccess, setCopySuccess] = useState<{[key: string]: boolean}>({});
+
+  const toggleHashDisplay = (fileId: number) => {
+    setShowFullHash(prev => ({ ...prev, [fileId]: !prev[fileId] }));
   };
 
-  const shortenAddress = (address: string) => {
-    return address.substring(0, 8) + '...' + address.substring(address.length - 6);
+  const toggleAddressDisplay = (fileId: number) => {
+    setShowFullAddress(prev => ({ ...prev, [fileId]: !prev[fileId] }));
+  };
+
+  const copyToClipboard = async (text: string, type: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopySuccess(prev => ({ ...prev, [type]: true }));
+      setTimeout(() => {
+        setCopySuccess(prev => ({ ...prev, [type]: false }));
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+
+  const formatDisplayText = (text: string, isShown: boolean) => {
+    if (isShown || text.length <= 20) {
+      return text;
+    }
+    return text.substring(0, 10) + '...' + text.substring(text.length - 8);
   };
 
   if (loading) {
@@ -115,12 +138,42 @@ export default function FileList() {
                 
                 <div className={styles.infoRow}>
                   <span className={styles.label}>Hash:</span>
-                  <code className={styles.hash}>{shortenHash(file.poseidonHash)}</code>
+                  <div className={styles.hashContainer}>
+                    <code 
+                      className={styles.hash}
+                      onClick={() => toggleHashDisplay(file.id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {formatDisplayText(file.poseidonHash, showFullHash[file.id])}
+                    </code>
+                    <button 
+                      onClick={() => copyToClipboard(file.poseidonHash, `hash-${file.id}`)}
+                      className={styles.copyButton}
+                      title="Copy hash"
+                    >
+                      {copySuccess[`hash-${file.id}`] ? '✓' : '📋'}
+                    </button>
+                  </div>
                 </div>
                 
                 <div className={styles.infoRow}>
                   <span className={styles.label}>Author:</span>
-                  <code className={styles.address}>{shortenAddress(file.authorAddress)}</code>
+                  <div className={styles.addressContainer}>
+                    <code 
+                      className={styles.address}
+                      onClick={() => toggleAddressDisplay(file.id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {formatDisplayText(file.authorAddress, showFullAddress[file.id])}
+                    </code>
+                    <button 
+                      onClick={() => copyToClipboard(file.authorAddress, `address-${file.id}`)}
+                      className={styles.copyButton}
+                      title="Copy address"
+                    >
+                      {copySuccess[`address-${file.id}`] ? '✓' : '📋'}
+                    </button>
+                  </div>
                 </div>
                 
                 <div className={styles.infoRow}>
@@ -131,7 +184,22 @@ export default function FileList() {
                 {file.starknetTxHash && (
                   <div className={styles.infoRow}>
                     <span className={styles.label}>TX Hash:</span>
-                    <code className={styles.hash}>{shortenHash(file.starknetTxHash)}</code>
+                    <div className={styles.hashContainer}>
+                      <code 
+                        className={styles.hash}
+                        onClick={() => toggleHashDisplay(`tx-${file.id}` as any)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {formatDisplayText(file.starknetTxHash, showFullHash[`tx-${file.id}` as any])}
+                      </code>
+                      <button 
+                        onClick={() => copyToClipboard(file.starknetTxHash, `tx-${file.id}`)}
+                        className={styles.copyButton}
+                        title="Copy transaction hash"
+                      >
+                        {copySuccess[`tx-${file.id}`] ? '✓' : '📋'}
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -148,10 +216,10 @@ export default function FileList() {
                   </a>
                 )}
                 <button 
-                  onClick={() => navigator.clipboard.writeText(file.poseidonHash)}
+                  onClick={() => copyToClipboard(file.poseidonHash, `main-hash-${file.id}`)}
                   className={styles.copyButton}
                 >
-                  Copy Hash
+                  {copySuccess[`main-hash-${file.id}`] ? 'Copied!' : 'Copy Hash'}
                 </button>
               </div>
             </div>

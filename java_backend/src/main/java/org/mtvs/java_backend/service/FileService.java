@@ -89,15 +89,43 @@ public class FileService {
     }
     
     public FileVerificationResponse verifyFile(String poseidonHash) {
+        // First check local database
         Optional<FileEntity> fileEntity = fileRepository.findByPoseidonHash(poseidonHash);
         
-        if (fileEntity.isEmpty()) {
+        // Also verify on Starknet for real-time verification
+        boolean isRegisteredOnChain = false;
+        java.util.Map<String, Object> chainDetails = java.util.Map.of();
+        
+        try {
+            isRegisteredOnChain = starknetService.verifyFileOnChain(poseidonHash);
+            if (isRegisteredOnChain) {
+                chainDetails = starknetService.getFileDetailsFromChain(poseidonHash);
+            }
+        } catch (Exception e) {
+            log.warn("Failed to verify on Starknet, using local data only: {}", e.getMessage());
+        }
+        
+        if (fileEntity.isEmpty() && !isRegisteredOnChain) {
             return FileVerificationResponse.builder()
                     .poseidonHash(poseidonHash)
                     .isRegistered(false)
                     .build();
         }
         
+        // If found on chain but not in local DB, create response from chain data
+        if (fileEntity.isEmpty() && isRegisteredOnChain) {
+            return FileVerificationResponse.builder()
+                    .poseidonHash(poseidonHash)
+                    .filename((String) chainDetails.getOrDefault("filename", "Unknown"))
+                    .fileType((String) chainDetails.getOrDefault("fileType", "Unknown"))
+                    .fileSize((Long) chainDetails.getOrDefault("fileSize", 0L))
+                    .authorAddress((String) chainDetails.getOrDefault("authorAddress", "Unknown"))
+                    .isRegistered(true)
+                    .starknetExplorerUrl(starknetService.getContractExplorerUrl())
+                    .build();
+        }
+        
+        // Use local data if available
         FileEntity entity = fileEntity.get();
         String explorerUrl = generateStarknetExplorerUrl(entity.getStarknetTxHash());
         
