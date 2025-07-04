@@ -27,12 +27,14 @@ pub struct FileInfo {
 pub mod FileAuthRegistry {
     use super::{FileInfo, ContractAddress};
     use starknet::{get_caller_address, get_block_timestamp};
+    use starknet::storage::{StorageMapReadAccess, StorageMapWriteAccess, Map};
+    use core::num::traits::Zero;
     
     #[storage]
     struct Storage {
-        files: LegacyMap<felt252, FileInfo>,
-        author_files: LegacyMap<(ContractAddress, u32), felt252>,
-        author_file_count: LegacyMap<ContractAddress, u32>,
+        files: Map<felt252, FileInfo>,
+        author_files: Map<(ContractAddress, u32), felt252>,
+        author_file_count: Map<ContractAddress, u32>,
     }
 
     #[event]

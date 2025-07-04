@@ -1,0 +1,7 @@
+[sncast.default]
+account = "myaccount"
+accounts-file = "~/.starknet_accounts/starknet_open_zeppelin_accounts.json"
+url = "https://starknet-sepolia.public.blastapi.io/rpc/v0_8"
+
+[snforge.default]
+# Add snforge configuration here if needed
