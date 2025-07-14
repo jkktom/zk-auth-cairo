@@ -26,6 +26,8 @@ This project implements a decentralized file authentication system using Cairo s
 
 **Explorer**: [View on Starkscan](https://sepolia.starkscan.co/contract/0x06ebf0234be358bd087fdf5165d4b5cf7103fa1d00b8a4edb32b6e61b6d764f0)
 
+Test it with your own wallet (account) or, Just use `0x06ecb9425da32b868721a6b9dd609879eb81d6b80494bff9dcf2e3b002801d2f` to see if it works. (Thanks to Starknet sepolia faucet)
+
 ### Contract Functions
 - `register_file()` - Register a new file with metadata
 - `verify_file()` - Verify file authenticity and get details
